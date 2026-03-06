@@ -8,3 +8,31 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+header nav {
+  display: flex; /* Flexboxを有効にする魔法の言葉 */
+  justify-content: space-between; /* ロゴを左、リストを右に押し分ける */
+  align-items: center; /* 縦方向のズレを真ん中に揃える */
+  padding: 15px 30px; /* 内側に少し余白を作る */
+  background-color: #f4f6f9;
+}
+
+/* 右側のリスト（About, 新規登録など）のレイアウト */
+header nav ul {
+  display: flex; /* リストを横並びにする */
+  list-style: none; /* リストの「・」マークを消す */
+  margin: 0;
+  padding: 0;
+  gap: 20px; /* リンクとリンクの間に20pxの隙間を作る */
+}
+
+/* リンク（文字）の見た目 */
+header nav a {
+  text-decoration: none; /* リンクの下線を消す */
+  color: #333333;
+  font-weight: bold; /* 文字を少し太く */
+}
+
+/* リンクにマウスを乗せた時の動き */
+header nav a:hover {
+  color: #007bff; /* マウスを乗せたら青色にする */
+}
