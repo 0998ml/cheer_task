@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "sessions/new"
+  get "session/new"
   get "users/new"
   get "homes/top"
   get "homes/about"
@@ -6,6 +8,9 @@ Rails.application.routes.draw do
   get 'about', to: 'homes#about'
   get 'signup', to: 'users#new' # 新規登録画面を表示するURL
   post '/users', to: 'users#create' #登録を押したときにデータを処理するURL
+  get    '/login',   to: 'sessions#new'     # ログイン画面を表示
+  post   '/login',   to: 'sessions#create'  # ログイン処理
+  delete '/logout',  to: 'sessions#destroy' # ログアウト処理
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
