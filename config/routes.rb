@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
+  get "users/new"
   get "homes/top"
   get "homes/about"
   root to: 'homes#top'
   get 'about', to: 'homes#about'
+  get 'signup', to: 'users#new' # 新規登録画面を表示するURL
+  post '/users', to: 'users#create' #登録を押したときにデータを処理するURL
+  
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
