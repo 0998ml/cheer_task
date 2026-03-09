@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   #　rails標準のパスワード暗号化、認証機能を有効にする
   has_secure_password
+  # ユーザーはたくさんのタスクを持っている 退会したときにタスクも消える
+  has_many :tasks, dependent: :destroy
 
   # 空のまま登録するとエラーになる設定
   validates :name, presence: true

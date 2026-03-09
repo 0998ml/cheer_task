@@ -32,8 +32,8 @@
 
           <%# ログインしている（セッションにユーザーIDがある）場合 %>
           <% if session[:user_id] %>
+            <li><%= link_to "マイページ", user_path %></li>
             <li><%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %></li>
-
           <%# ログインしていない場合 %>
           <% else %>
           <li><%= link_to "新規登録", signup_path %></li>

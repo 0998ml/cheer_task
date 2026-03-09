@@ -1,0 +1,14 @@
+<h1>タスク一覧</h1>
+
+<%= link_to "新しくタスクを投稿する", new_task_path %>
+
+<hr>
+
+<% @tasks.each do |task| %>
+  <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+    <h3><%= link_to task.title, task_path(task) %></h3>
+    <p><%= task.body %></p>
+    <%# 投稿したユーザーの名前を表示（アソシエーションのおかげで呼べる） %>
+    <p>投稿者: <%= task.user.name %></p>
+  </div>
+<% end %>
