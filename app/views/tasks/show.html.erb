@@ -1,0 +1,21 @@
+<h1>タスク詳細</h1>
+
+<div style="border: 1px solid #ccc; padding: 20px;">
+  <h2><%= @task.title %></h2>
+  <p><%= @task.body %></p>
+  <p>投稿者: <%= @task.user.name %></p>
+
+  <%# 要件10：自分の投稿の時だけ「編集」「削除」を表示する %>
+  <% if @task.user == current_user %>
+    <hr>
+    <%= link_to "編集する", edit_task_path(@task) %> |
+    
+    <%# 要件9：削除前にアラートを表示する（turbo_confirm） %>
+    <%= link_to "削除する", task_path(@task), 
+                data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+  <% end %>
+</div>
+
+<div style="margin-top: 20px;">
+  <%= link_to "一覧に戻る", tasks_path %>
+</div>

@@ -1,0 +1,35 @@
+<h1>タスク編集</h1>
+
+<%= form_with model: @task, local: true do |f| %>
+
+  <%# 要件8：投稿の保存に失敗した際のエラーメッセージを表示させる %>
+  <% if @task.errors.any? %>
+    <div style="color: red;">
+      <h3><%= @task.errors.count %>件のエラーがあります:</h3>
+      <ul>
+        <% @task.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :title, "タイトル" %><br>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :body, "内容" %><br>
+    <%= f.text_area :body %>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <%= f.submit "更新する" %>
+  </div>
+
+<% end %>
+
+<div style="margin-top: 20px;">
+  <%= link_to "詳細に戻る", task_path(@task) %>
+</div>

@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  get "sessions/new"
-  get "session/new"
-  get "users/new"
-  get "homes/top"
+  get "tasks/index"
+  get "tasks/show"
+  get "tasks/new"
+  get "tasks/edit"
   get "homes/about"
   root to: 'homes#top'
   get 'about', to: 'homes#about'
@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'     # ログイン画面を表示
   post   '/login',   to: 'sessions#create'  # ログイン処理
   delete '/logout',  to: 'sessions#destroy' # ログアウト処理
-  
+  resources :tasks   #タスクのCRUD用のルートを一括作成（一覧、詳細、新規、編集、削除すべてを1行で作成）
+  #自分の情報を扱うルート
+  resource :user, only: [:show, :edit, :update, :destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
