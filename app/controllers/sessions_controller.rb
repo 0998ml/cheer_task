@@ -21,6 +21,6 @@ class SessionsController < ApplicationController
   def destroy
     # セッションからユーザーIDを消す（ログアウト）
     session.delete(:user_id)
-    redirect_to root_path, notice: "ログアウトしました", status: :see_other
+    redirect_to about_path, notice: "ログアウトしました", status: :see_other
   end
 end
