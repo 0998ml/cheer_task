@@ -30,6 +30,9 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = false
 
+  # 以下の行を追加（セキュリティチェックの「送り元確認」を一時的にオフにします）
+  config.action_controller.forgery_protection_origin_check = false
+
   # Skip http-to-https redirect for the default health check endpoint.
   # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
 
