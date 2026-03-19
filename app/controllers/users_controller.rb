@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user
+    @user = User.find(params[:id]) #params[:id] を使って、URLの番号のユーザーを探す
     @tasks = @user.tasks  #ログインユーザーの投稿一覧を取得
   end
 
