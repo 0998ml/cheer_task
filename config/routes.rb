@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy' # ログアウト処理
   resources :tasks   #タスクのCRUD用のルートを一括作成（一覧、詳細、新規、編集、削除すべてを1行で作成）
   #自分の情報を扱うルート
-  resource :user, only: [:show, :edit, :update, :destroy]
+  resource :users, only: [:show, :edit, :update, :destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

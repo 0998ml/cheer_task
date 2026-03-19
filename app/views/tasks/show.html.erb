@@ -3,7 +3,7 @@
 <div style="border: 1px solid #ccc; padding: 20px;">
   <h2><%= @task.title %></h2>
   <p><%= @task.body %></p>
-  <p>投稿者: <%= @task.user.name %></p>
+  <p>投稿者: <%= link_to @task.user.name, user_path(@task.user) %></p>
 
   <%# 要件10：自分の投稿の時だけ「編集」「削除」を表示する %>
   <% if @task.user == current_user %>
