@@ -1,22 +1,42 @@
-<h1>マイページ</h1>
+<%# app/views/users/show.html.erb %>
+
+<%# 1. タイトルの出し分け %>
+<% if @user.id == session[:user_id] %>
+  <h1>マイページ</h1>
+<% else %>
+  <h1><%= @user.name %> さんのページ</h1>
+<% end %>
 
 <div style="border: 1px solid #ccc; padding: 20px; margin-bottom: 20px;">
   <p><strong>名前:</strong> <%= @user.name %></p>
   <p><strong>メールアドレス:</strong> <%= @user.email %></p>
-  
-  <%= link_to "プロフィール編集", edit_user_path %>
+
+  <%# 2. 編集ボタンは自分のときだけ！ + (@user) を追加 %>
+  <% if @user.id == session[:user_id] %>
+    <%= link_to "プロフィール編集", edit_user_path(@user) %>
+  <% end %>
 </div>
 
-<h2>あなたの投稿一覧</h2>
+<%# 3. 一覧のタイトルの出し分け %>
+<% if @user.id == session[:user_id] %>
+  <h2>あなたの投稿一覧</h2>
+<% else %>
+  <h2><%= @user.name %> さんの投稿一覧</h2>
+<% end %>
+
+<%# 11〜16行目：ここは元のまま活かします！ %>
 <% @tasks.each do |task| %>
   <div style="border-bottom: 1px solid #eee; padding: 10px;">
     <%= link_to task.title, task_path(task) %>
-    （<%= task.created_at.strftime("%Y/%m/%d") %>）
+    (<%= task.created_at.strftime("%Y/%m/%d") %>)
   </div>
 <% end %>
 
-<hr style="margin-top: 50px;">
-<%# 要件3：退会ボタン %>
-<%= link_to "退会する", user_path, 
-            data: { turbo_method: :delete, turbo_confirm: "本当に退会しますか？投稿したタスクもすべて削除されます。" }, 
-            style: "color: red;" %>
+<%# 4. 退会ボタンも自分のときだけ！ + (@user) を追加 %>
+<% if @user.id == session[:user_id] %>
+  <hr style="margin-top: 50px;">
+  <%# 要件3: 退会ボタン %>
+  <%= link_to "退会する", user_path(@user), 
+              data: { turbo_method: :delete, turbo_confirm: "本当に退会しますか？投稿したタスクもすべて削除されます。" }, 
+              style: "color: red;" %>
+<% end %>
