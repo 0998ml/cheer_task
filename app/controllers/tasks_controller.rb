@@ -33,7 +33,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to task_path(@task), notice: "タスクを更新しました。"
+      redirect_to tasks_path, notice: "タスクを更新しました。"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -47,7 +47,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :body)
+    params.require(:task).permit(:title, :body, :status)
   end
 
   def ensure_correct_user
