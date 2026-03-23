@@ -1,0 +1,26 @@
+<h1>管理者専用：ユーザー一覧</h1>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>名前</th>
+      <th>管理者権限</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td> <td><%= user.admin? ? "👑 管理者" : "一般" %></td>
+      
+        <td>
+          <% if current_user != user %>
+            <%= button_to '削除', admin_user_path(user), method: :delete, form: { data: { turbo_confirm: '本当に削除してよろしいですか？' } } %>
+          <% end %>
+        </td>
+        
+        </tr>
+    <% end %>
+  </tbody>
+</table>

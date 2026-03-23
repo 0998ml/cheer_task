@@ -29,7 +29,7 @@ threads threads_count, threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 #bind "unix://#{Rails.root}/tmp/sockets/puma.sock"
-bind "unix:///home/ubuntu/cheer_task/tmp/sockets/puma.sock"
+bind "unix:///home/ubuntu/portfolio/cheer_task/tmp/sockets/puma.sock"
 
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
@@ -39,4 +39,6 @@ plugin :solid_queue if ENV["SOLID_QUEUE_IN_PUMA"]
 
 # Specify the PID file. Defaults to tmp/pids/server.pid in development.
 # In other environments, only set the PID file if requested.
-pidfile "/home/ubuntu/cheer_task/tmp/pids/puma.pid"
+directory "/home/ubuntu/portfolio/cheer_task"
+pidfile "/home/ubuntu/portfolio/cheer_task/tmp/pids/puma.pid"
+state_path "/home/ubuntu/portfolio/cheer_task/tmp/pids/puma.state"

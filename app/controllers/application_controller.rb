@@ -15,4 +15,12 @@ class ApplicationController < ActionController::Base
       redirect_to login_path, alert: "ログインが必要です"
     end
   end
+
+  def require_admin
+    # 「ログインしていない」または「管理者（admin）が true じゃない」場合はトップページに追い出す
+    unless current_user && current_user.admin?
+      redirect_to root_path, alert: "管理者権限がありません。"
+    end
+  end
+
 end

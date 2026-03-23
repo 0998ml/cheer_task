@@ -14,6 +14,12 @@ Rails.application.routes.draw do
   resources :tasks   #タスクのCRUD用のルートを一括作成（一覧、詳細、新規、編集、削除すべてを1行で作成）
   #自分の情報を扱うルート
   resources :users, only: [:show, :edit, :update, :destroy]
+
+  # 管理者専用のルーティング
+  namespace :admin do
+    get "users/index"
+    resources :users, only: [:index, :destroy] # 一覧画面
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
