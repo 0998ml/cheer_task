@@ -17,8 +17,10 @@ Rails.application.routes.draw do
 
   # 管理者専用のルーティング
   namespace :admin do
+    get "tasks/index"
     get "users/index"
     resources :users, only: [:index, :destroy] # 一覧画面
+    resources :tasks, only: [:index, :destroy]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
