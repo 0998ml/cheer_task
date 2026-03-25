@@ -19,6 +19,13 @@
         <h3><%= user.name %></h3>
       </div>
       <%= link_to 'プロフィールを見る', user_path(user), class: "profile-link" %>
+      <div class="invite-form">
+        <%= form_with(model: GroupUser.new, local: true) do |f| %>
+          <%= f.hidden_field :user_id, value: user.id %>
+          <%= f.select :group_id, Group.all.collect { |g| [g.name, g.id] }, { prompt: "グループを選択" }, { class: "invite-select", required: true } %>
+          <%= f.submit "招待", class: "invite-btn" %>
+        <% end %>
+      </div>
     </div>
   <% end %>
 </div>
@@ -80,5 +87,33 @@
 
   .profile-link:hover {
     background-color: #1a252f;
+  }
+  .invite-form {
+    margin-top: 10px;
+    display: flex;
+    gap: 5px;
+    justify-content: flex-end; /* 右側に寄せる */
+  }
+
+  .invite-select {
+    padding: 5px;
+    font-size: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .invite-btn {
+    background-color: #e67e22; 
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .invite-btn:hover {
+    background-color: #d35400;
   }
 </style>

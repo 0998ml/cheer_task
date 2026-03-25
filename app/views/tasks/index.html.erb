@@ -1,9 +1,33 @@
-<h1>タスク一覧</h1>
+<div class="groups-section" style="margin-bottom: 40px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+  <h2>グループ</h2>
+  
+  <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
+    <% @groups.each do |group| %>
+      <%= link_to group_path(group), style: "background: white; padding: 15px 20px; border-radius: 8px; border: 1px solid #ddd; text-decoration: none; color: #333; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: 0.2s;" do %>
+         <%= group.name %> <span style="font-size: 0.8rem; color: #888;">(<%= group.tasks.count %>)</span>
+      <% end %>
+    <% end %>
+  </div>
 
-<%= link_to '新しいタスクを作成', new_task_path %>
+  <%= form_with(model: @group, local: true, style: "display: flex; gap: 10px; align-items: center;") do |f| %>
+    <%= f.text_field :name, placeholder: "新しいグループ名...", required: true, style: "padding: 8px; border-radius: 4px; border: 1px solid #ccc; width: 250px;" %>
+    <%= f.submit "＋ グループ作成", style: "background: #3498db; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;" %>
+  <% end %>
+</div>
 
-<div class="search-form">
-  <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
+<hr style="margin-bottom: 30px;">
+
+<details style="margin-bottom: 50px; cursor: pointer;">
+  <summary style="font-size: 1.2rem; font-weight: bold; color: #555; padding: 10px; background: #e9ecef; border-radius: 8px; outline: none;">
+     すべてのタスクを見る（クリックで開く）
+  </summary>
+
+  <div style="margin-top: 15px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background: #fff;">
+
+    <%= link_to '新しいタスクを作成', new_task_path %>
+
+    <div class="search-form">
+      <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
     <%= f.text_field :search, value: params[:search], placeholder: "キーワードでタスクを検索...", class: "search-input" %>
     <%= f.submit "検索", class: "search-btn" %>
     
@@ -65,6 +89,7 @@
               <% end %>
             <% end %>
           </div>
+          
           <% if current_user == task.user %>
             <%= button_to '↩️ 未対応に戻す', task_path(task, task: { status: 'todo' }), method: :patch, form_class: 'status-form' %>
           <% end %>
@@ -72,9 +97,8 @@
       <% end %>
     <% end %>
   </div>
-
-</div>
-
+</div> </div>
+</details>
 <style>
   /* ボード全体を横並び（2列）にする */
   .kanban-board {

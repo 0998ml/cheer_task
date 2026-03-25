@@ -11,11 +11,35 @@
   <p><strong>名前:</strong> <%= @user.name %></p>
   <p><strong>メールアドレス:</strong> <%= @user.email %></p>
 
-  <%# 2. 編集ボタンは自分のときだけ！ + (@user) を追加 %>
+  <%#  編集ボタンは自分のときだけ  %>
   <% if @user.id == session[:user_id] %>
     <%= link_to "プロフィール編集", edit_user_path(@user) %>
   <% end %>
 </div>
+
+<% if @user.id == session[:user_id] %>
+    <div style="margin-top: 20px;">
+      <h2 style="border-left: 5px solid #e67e22; padding-left: 10px;"> 届いている招待</h2>
+      
+      <% # 自分宛ての招待(status: 0)を取得 %>
+      <% invitations = GroupUser.where(user_id: current_user.id, status: 0) %>
+
+      <% if invitations.any? %>
+        <% invitations.each do |invite| %>
+          <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #ffeeba;">
+            <p><strong><%= invite.group.name %></strong> グループから招待されています</p>
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+              <%= button_to "参加する", group_user_path(invite), method: :patch, style: "background-color: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;" %>
+              <%= button_to "拒否する", group_user_path(invite), method: :delete, style: "background-color: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;" %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p style="color: #888;">現在、新しい招待はありません</p>
+      <% end %>
+    </div>
+  <% end %>
+
 
 <%# 3. 一覧のタイトルの出し分け %>
 <% if @user.id == session[:user_id] %>
@@ -24,7 +48,7 @@
   <h2><%= @user.name %> さんの投稿一覧</h2>
 <% end %>
 
-<%# 11〜16行目：ここは元のまま活かします！ %>
+
 <% @tasks.each do |task| %>
   <div style="border-bottom: 1px solid #eee; padding: 10px;">
     <%= link_to task.title, task_path(task) %>
@@ -32,11 +56,11 @@
   </div>
 <% end %>
 
-<%# 4. 退会ボタンも自分のときだけ！ + (@user) を追加 %>
+
 <% if @user.id == session[:user_id] %>
   <hr style="margin-top: 50px;">
   <%# 要件3: 退会ボタン %>
   <%= link_to "退会する", user_path(@user), 
-              data: { turbo_method: :delete, turbo_confirm: "本当に退会しますか？投稿したタスクもすべて削除されます。" }, 
+              data: { turbo_method: :delete, turbo_confirm: "本当に退会しますか？投稿したタスクもすべて削除されます" }, 
               style: "color: red;" %>
 <% end %>

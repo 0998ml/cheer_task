@@ -13,6 +13,8 @@ class TasksController < ApplicationController
     else
       # 検索されていない時は、今まで通りすべてのタスクを表示する
       @tasks = Task.all #すべてのタスクを取得して、一覧に表示
+      @groups = Group.all
+      @group = Group.new
     end
   end
 
