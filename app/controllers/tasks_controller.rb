@@ -6,7 +6,14 @@ class TasksController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
   
   def index
-    @tasks = Task.all #すべてのタスクを取得して、一覧に表示
+    # もし検索キーワードが入力されていたら
+    if params[:search].present?
+      # タイトル(title) か 本文(body) のどちらかにキーワードが含まれるものを探す
+      @tasks = Task.where('title LIKE ? OR body LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%")
+    else
+      # 検索されていない時は、今まで通りすべてのタスクを表示する
+      @tasks = Task.all #すべてのタスクを取得して、一覧に表示
+    end
   end
 
   def show
