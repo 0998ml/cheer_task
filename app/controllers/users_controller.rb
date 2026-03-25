@@ -2,6 +2,16 @@ class UsersController < ApplicationController
   # ログインしてないとアクセスできないようにする
   before_action :authenticate_user, only: [:show, :edit, :update, :destroy]
 
+  def index
+    if params[:search].present?
+      # 名前(name)にキーワードが含まれるユーザーを探す
+      @users = User.where('name LIKE ?', "%#{params[:search]}%")
+    else
+      # 検索されていない時は、全ユーザーを表示する
+      @users = User.all
+    end
+  end
+
   def new
     @user = User.new
   end

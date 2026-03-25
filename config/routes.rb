@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   end
   
   #自分の情報を扱うルート
-  resources :users, only: [:show, :edit, :update, :destroy]
+  resources :users, only: [:show, :edit, :update, :destroy, :index]
 
   # 管理者専用のルーティング
   namespace :admin do
