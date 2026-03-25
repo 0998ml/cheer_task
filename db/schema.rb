@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_23_081312) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_25_091355) do
   create_table "cheers", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "task_id", null: false
@@ -18,6 +18,16 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_23_081312) do
     t.datetime "updated_at", null: false
     t.index ["task_id"], name: "index_cheers_on_task_id"
     t.index ["user_id"], name: "index_cheers_on_user_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id", null: false
+    t.integer "task_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_comments_on_task_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -40,4 +50,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_23_081312) do
 
   add_foreign_key "cheers", "tasks"
   add_foreign_key "cheers", "users"
+  add_foreign_key "comments", "tasks"
+  add_foreign_key "comments", "users"
 end

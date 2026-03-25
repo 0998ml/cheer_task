@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   has_many :cheers, dependent: :destroy
 
+  has_many :comments, dependent: :destroy
+
   def cheered?(task)
     self.cheers.exists?(task_id: task.id)
   end

@@ -21,7 +21,7 @@
     <% @tasks.each do |task| %>
       <% if task.status != 'done' %>
         <div class="task-card">
-          <h3><%= task.title %></h3>
+          <h3><%= link_to task.title, task_path(task), class: "task-title-link" %></h3>
           <p><%= task.body %></p>
           <p class="task-user">投稿者：<%= task.user.name %></p>
 
@@ -50,7 +50,7 @@
     <% @tasks.each do |task| %>
       <% if task.status == 'done' %>
         <div class="task-card">
-          <h3><%= task.title %></h3>
+          <h3><%= link_to task.title, task_path(task), class: "task-title-link" %></h3>
           <p><%= task.body %></p>
           <p class="task-user">投稿者：<%= task.user.name %></p>
 
