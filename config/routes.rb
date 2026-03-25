@@ -11,7 +11,11 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'     # ログイン画面を表示
   post   '/login',   to: 'sessions#create'  # ログイン処理
   delete '/logout',  to: 'sessions#destroy' # ログアウト処理
-  resources :tasks   #タスクのCRUD用のルートを一括作成（一覧、詳細、新規、編集、削除すべてを1行で作成）
+  
+  resources :tasks do
+    resource :cheers, only: [:create, :destroy]
+  end
+  
   #自分の情報を扱うルート
   resources :users, only: [:show, :edit, :update, :destroy]
 

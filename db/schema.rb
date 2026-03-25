@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_23_071114) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_23_081312) do
+  create_table "cheers", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "task_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_cheers_on_task_id"
+    t.index ["user_id"], name: "index_cheers_on_user_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -28,4 +37,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_23_071114) do
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
   end
+
+  add_foreign_key "cheers", "tasks"
+  add_foreign_key "cheers", "users"
 end
