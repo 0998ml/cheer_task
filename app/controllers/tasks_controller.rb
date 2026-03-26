@@ -56,7 +56,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :body, :status)
+    params.require(:task).permit(:title, :body, :status, :group_id)
   end
 
   def ensure_correct_user

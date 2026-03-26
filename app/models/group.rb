@@ -7,5 +7,5 @@ class Group < ApplicationRecord
   has_many :users, through: :group_users
 
   # 名前は必須にする
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 end

@@ -25,6 +25,11 @@
     <%= f.text_area :body %>
   </div>
 
+  <div style="margin-bottom: 20px;">
+    <%= f.label :group_id, "グループ" %><br> <%# .distinctで重複しているデータは1つにまとめる #%>
+    <%= f.collection_select :group_id, current_user.groups.distinct, :id, :name, { include_blank: "選択しない（未分類）" }, { style: "padding: 5px; border-radius: 4px;" } %>
+  </div> 
+
   <div style="margin-top: 20px;">
     <%= f.submit "投稿する" %>
   </div>

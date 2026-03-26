@@ -6,7 +6,6 @@ class Task < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
-  # --- バリデーション：タイトルと内容は必須 ---
+  # タイトルは必須
   validates :title, presence: true
-  validates :body, presence: true
 end

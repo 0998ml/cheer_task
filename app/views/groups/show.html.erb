@@ -1,0 +1,43 @@
+<div class="group-header" style="margin-bottom: 30px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
+  <h1> グループ：<%= @group.name %></h1>
+  
+  <%= link_to '← タスク一覧に戻る', tasks_path, class: "back-link", style: "color: #3498db; text-decoration: none;" %>
+</div>
+
+<h3>👥 参加メンバー</h3>
+<div class="group-members" style="margin-bottom: 30px; display: flex; gap: 10px;">
+  <% @group.users.where(group_users: { status: 1 }).each do |user| %>
+    <span style="background: #eee; padding: 5px 10px; border-radius: 20px; font-size: 0.9rem;">
+      👤 <%= user.name %>
+    </span>
+  <% end %>
+</div>
+
+<hr>
+
+<h3>📋 <%= @group.name %> のカンバンボード</h3>
+<div class="kanban-board" style="display: flex; gap: 20px; align-items: flex-start;">
+
+  <div class="kanban-column" style="flex: 1; background: #f4f5f7; padding: 15px; border-radius: 8px;">
+    <h2 style="font-size: 1.1rem; border-bottom: 2px solid #ccc;">未対応</h2>
+    <% @tasks.each do |task| %>
+      <% if task.status != 'done' %>
+        <div style="background: white; padding: 10px; margin-top: 10px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+          <strong><%= link_to task.title, task_path(task) %></strong>
+          <p style="font-size: 0.8rem; color: #666; margin: 5px 0;">投稿者: <%= task.user.name %></p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="kanban-column" style="flex: 1; background: #ebfaf0; padding: 15px; border-radius: 8px;">
+    <h2 style="font-size: 1.1rem; border-bottom: 2px solid #2ecc71;">完了</h2>
+    <% @tasks.each do |task| %>
+      <% if task.status == 'done' %>
+        <div style="background: white; padding: 10px; margin-top: 10px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); opacity: 0.7;">
+          <del><%= link_to task.title, task_path(task) %></del>
+          <p style="font-size: 0.8rem; color: #666; margin: 5px 0;">投稿者: <%= task.user.name %></p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>

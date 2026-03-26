@@ -17,7 +17,8 @@
 
 <hr style="margin-bottom: 30px;">
 
-<details style="margin-bottom: 50px; cursor: pointer;">
+
+<details id="tasks-accordion" style="margin-bottom: 50px; cursor: pointer;">
   <summary style="font-size: 1.2rem; font-weight: bold; color: #555; padding: 10px; background: #e9ecef; border-radius: 8px; outline: none;">
      すべてのタスクを見る（クリックで開く）
   </summary>
@@ -127,25 +128,25 @@
   /* 白いカード（タスク）のデザイン */
   .task-card {
     background-color: #ffffff;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   }
 
   .task-card h3 {
-    margin: 0 0 10px 0;
-    font-size: 1.1rem;
+    margin: 0 0 5px 0;
+    font-size: 1rem;
     color: #2c3e50;
   }
 
   .task-card p {
-    margin: 0 0 10px 0;
+    margin: 0 0 5px 0;
     color: #555;
   }
 
   .task-user {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #888;
     text-align: right;
     margin: 0 !important;
@@ -153,8 +154,8 @@
 
   /* Cheerボタンのデザイン */
   .cheer-section {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
 
   .cheer-btn {
@@ -215,3 +216,23 @@
     font-size: 0.9rem;
   }
 </style>
+
+<script>
+  // ページが読み込まれた時に実行する
+  document.addEventListener("turbo:load", () => {
+    const accordion = document.getElementById("tasks-accordion");
+    if (accordion) {
+      
+      // ① ブラウザの記憶（sessionStorage）を確認して、前回「開いていた」なら開く
+      if (sessionStorage.getItem("accordionState") === "true") {
+        accordion.open = true;
+      }
+
+      // ② ユーザーがクリックして開け閉めした時に、その状態を記憶させる
+      accordion.addEventListener("toggle", () => {
+        sessionStorage.setItem("accordionState", accordion.open);
+      });
+      
+    }
+  });
+</script>
