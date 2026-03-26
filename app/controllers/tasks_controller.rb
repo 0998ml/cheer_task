@@ -42,7 +42,8 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, notice: "タスクを更新しました。"
+      #直前のページのURLに戻す　
+      redirect_to "#{request.referer.split('#').first}#task_#{@task.id}"
     else
       render :edit, status: :unprocessable_entity
     end

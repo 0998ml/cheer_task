@@ -4,7 +4,7 @@
   <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
     <% @groups.each do |group| %>
       <%= link_to group_path(group), style: "background: white; padding: 15px 20px; border-radius: 8px; border: 1px solid #ddd; text-decoration: none; color: #333; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: 0.2s;" do %>
-         <%= group.name %> <span style="font-size: 0.8rem; color: #888;">(<%= group.tasks.count %>)</span>
+         <%= group.name %> 
       <% end %>
     <% end %>
   </div>
@@ -45,7 +45,7 @@
 
     <% @tasks.each do |task| %>
       <% if task.status != 'done' %>
-        <div class="task-card">
+        <div class="task-card" id="task_<%= task.id %>">
           <h3><%= link_to task.title, task_path(task), class: "task-title-link" %></h3>
           <p><%= task.body %></p>
           <p class="task-user">投稿者：<%= task.user.name %></p>
@@ -62,7 +62,7 @@
             <% end %>
           </div>
           <% if current_user == task.user %>
-            <%= button_to '✅ 完了にする', task_path(task, task: { status: 'done' }), method: :patch, form_class: 'status-form' %>
+            <%= button_to '✅ 完了にする', task_path(task, task: { status: 'done' }), method: :patch, form_class: 'status-form', data: { turbo: false } %>
           <% end %>
         </div>
       <% end %>
@@ -74,7 +74,7 @@
 
     <% @tasks.each do |task| %>
       <% if task.status == 'done' %>
-        <div class="task-card">
+        <div class="task-card" id="task_<%= task.id %>">
           <h3><%= link_to task.title, task_path(task), class: "task-title-link" %></h3>
           <p><%= task.body %></p>
           <p class="task-user">投稿者：<%= task.user.name %></p>
@@ -92,7 +92,7 @@
           </div>
           
           <% if current_user == task.user %>
-            <%= button_to '↩️ 未対応に戻す', task_path(task, task: { status: 'todo' }), method: :patch, form_class: 'status-form' %>
+            <%= button_to '↩️ 未対応に戻す', task_path(task, task: { status: 'todo' }), method: :patch, form_class: 'status-form', data: { turbo: false } %>
           <% end %>
         </div>
       <% end %>
@@ -218,12 +218,11 @@
 </style>
 
 <script>
-  // ページが読み込まれた時に実行する
   document.addEventListener("turbo:load", () => {
     const accordion = document.getElementById("tasks-accordion");
     if (accordion) {
       
-      // ① ブラウザの記憶（sessionStorage）を確認して、前回「開いていた」なら開く
+      // ① ブラウザの記憶を確認して、前回「開いていた」なら開く
       if (sessionStorage.getItem("accordionState") === "true") {
         accordion.open = true;
       }
@@ -232,6 +231,7 @@
       accordion.addEventListener("toggle", () => {
         sessionStorage.setItem("accordionState", accordion.open);
       });
+      
       
     }
   });
