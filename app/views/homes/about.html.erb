@@ -1,21 +1,47 @@
-<h1>About CheerTASK</h1>
-<section>
-  <h2>CheerTASKとは？</h2>
-  <p>
-    チーム開発の進捗を可視化し、メンバー同士で称賛し合える、コミュニケーションに特化したサイトです。
-  </p>
-</section>
+<div class="about-section bg-light py-5">
+  <div class="container my-5">
+    <div class="text-center mb-5">
+      <h2 class="display-4 fw-bold mb-3">CheerTASKで、<br>チーム開発をアップデート。</h2>
+      <p class="fs-5 text-muted">一人では続かないことも、仲間となら越えていける。</p>
+    </div>
 
-<section>
-  <h2>主な機能</h2>
-  <ul>
-    <li><strong>タスク管理:</strong> 自分の目標に向かって、一歩ずつ着実にタスクの進捗を記録・管理できます。</li>
-    <li><strong>チア送信:</strong> 頑張っている仲間のタスクに「チア（応援）」を送信。お互いのモチベーションを高め合えます。</li>
-    <li><strong>チーム機能:</strong> 同じ目標を持つ仲間とグループを作成し、チーム全体でタスクに取り組むことができます。</li>
-  </ul>
-</section>
+    <div class="row g-4 justify-content-center">
+      
+      <div class="col-md-4">
+        <div class="apple-card shadow-sm border-0 rounded-4 p-5 bg-white text-center h-100">
+          <div class="card-icon mb-4">
+            <i class="bi bi-journal-check text-primary" style="font-size: 3rem;"></i>
+          </div>
+          <h3 class="h3 fw-bold mb-3">タスク管理</h3>
+          <p class="text-muted mb-0">自分の目標に向かって、一歩ずつ着実にタスクの進捗を記録・管理できます。</p>
+        </div>
+      </div>
 
-<div class="about-image">
-  <p>【ここにアプリの画面キャプチャやイメージ画像を設置】</p>
+      <div class="col-md-4">
+        <div class="apple-card shadow-sm border-0 rounded-4 p-5 bg-white text-center h-100">
+          <div class="card-icon mb-4">
+            <i class="bi bi-megaphone-fill text-danger" style="font-size: 3rem;"></i>
+          </div>
+          <h3 class="h3 fw-bold mb-3">チア送信</h3>
+          <p class="text-muted mb-0">頑張っている仲間のタスクに「チア（応援）」を送信。お互いのモチベーションを高め合えます。</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="apple-card shadow-sm border-0 rounded-4 p-5 bg-white text-center h-100">
+          <div class="card-icon mb-4">
+            <i class="bi bi-people-fill text-success" style="font-size: 3rem;"></i>
+          </div>
+          <h3 class="h3 fw-bold mb-3">チーム機能</h3>
+          <p class="text-muted mb-0">同じ目標を持つ仲間とグループを作成し、チーム全体でタスクに取り組むことができます。</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-5 pt-4">
+      <%= link_to 'トップページへ戻る', root_path, class: 'text-decoration-none' %> ›
+    </div>
+  </div>
 </div>
 
