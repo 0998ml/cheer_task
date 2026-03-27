@@ -15,6 +15,14 @@ class User < ApplicationRecord
     self.cheers.exists?(task_id: task.id)
   end
 
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64 # ランダムな安全なパスワードを自動生成
+      user.name = "ゲストユーザー" 
+    end
+  end
+  #
+
   # 空のまま登録するとエラーになる設定
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true #メールアドレスが必須かつ、重複不可

@@ -23,4 +23,11 @@ class SessionsController < ApplicationController
     session.delete(:user_id)
     redirect_to about_path, notice: "ログアウトしました", status: :see_other
   end
+
+  def guest_login
+    user = User.guest
+    session[:user_id] = user.id # ここでログイン状態にする
+    redirect_to tasks_path, notice: 'ゲストユーザーとしてログインしました。'
+  end
+
 end

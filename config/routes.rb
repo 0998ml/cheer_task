@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'     # ログイン画面を表示
   post   '/login',   to: 'sessions#create'  # ログイン処理
   delete '/logout',  to: 'sessions#destroy' # ログアウト処理
+  post '/guest_login', to: 'sessions#guest_login' # ゲストログイン用のルートを追加
   
   resources :tasks do
     resource :cheers, only: [:create, :destroy]

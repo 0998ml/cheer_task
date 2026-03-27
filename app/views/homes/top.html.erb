@@ -23,6 +23,7 @@
       <% else %>
         <%= link_to '新しく始める', signup_path, class: 'btn btn-primary btn-lg rounded-pill px-5 fw-bold' %>
         <%= link_to 'ログイン', login_path, class: 'btn btn-outline-primary btn-lg rounded-pill px-5 fw-bold' %>
+        <%= button_to 'ゲストログイン', guest_login_path, class: 'btn btn-outline-primary btn-lg rounded-pill px-5 fw-bold' %>
       <% end %>
     </div>
   </div>
