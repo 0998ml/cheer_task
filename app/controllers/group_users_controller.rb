@@ -13,7 +13,6 @@ class GroupUsersController < ApplicationController
     @group_user = GroupUser.find(params[:id])
     if @group_user.update(status: 1)
       redirect_back(fallback_location: root_path, notice: "グループに参加しました")
-  else
     else
       redirect_back(fallback_location: root_path, alert: "承認に失敗しました")
     end
@@ -23,7 +22,7 @@ class GroupUsersController < ApplicationController
   def destroy
     @group_user = GroupUser.find(params[:id])
     @group_user.destroy
-    redirect_back(fallback_location: root_path), notice: "招待を拒否しました"
+    redirect_back(fallback_location: root_path, notice: "招待を拒否しました")
   end
 
   private
