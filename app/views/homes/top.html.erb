@@ -1,2 +1,30 @@
-<h1>CheerTASKへようこそ</h1>
-<p>ここはトップページです。</p>
+<%# app/views/homes/top.html.erb %>
+
+<div class="apple-style-hero text-center d-flex align-items-center justify-content-center">
+  <div class="container">
+    <div class="mb-4">
+      <i class="bi bi-person-heart text-primary display-1" style="font-size: 5rem;"></i>
+    </div>
+    
+    <h1 class="display-1 fw-bold tracking-tight mb-3">
+      たくさんのタスク。<br>
+      Cheerをもっと。<br>
+      チーム開発に楽しさを。
+    </h1>
+    
+    <p class="fs-4 text-muted mb-5">
+      CheerTASKで、仲間と最高のモチベーションを。
+      <%= link_to '詳しく知る', '/about', class: 'text-decoration-none ms-2' %> ›
+    </p>
+
+    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center mb-5">
+      <% if logged_in? %>
+        <%= link_to 'マイページ', user_path(current_user), class: 'btn btn-primary btn-lg rounded-pill px-5 fw-bold' %>
+      <% else %>
+        <%= link_to '新しく始める', signup_path, class: 'btn btn-primary btn-lg rounded-pill px-5 fw-bold' %>
+        <%= link_to 'ログイン', login_path, class: 'btn btn-outline-primary btn-lg rounded-pill px-5 fw-bold' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>

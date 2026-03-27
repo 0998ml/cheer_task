@@ -1,12 +1,16 @@
 class ApplicationController < ActionController::Base
   # どこからでも current_user と呼べば、ログイン中のユーザー情報を返してくれるようにする
-  helper_method :current_user
+  helper_method :current_user, :logged_in?
 
   private
 
   def current_user
     # セッションにIDがあれば、そのユーザーを探して持っておく
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+  end
+
+  def logged_in?
+    current_user.present?
   end
 
   # ログインしていない場合にログイン画面へ飛ばす
