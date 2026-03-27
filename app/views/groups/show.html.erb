@@ -30,6 +30,19 @@
         <div style="background: white; padding: 10px; margin-top: 10px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
           <strong><%= link_to task.title, task_path(task) %></strong>
           <p style="font-size: 0.8rem; color: #666; margin: 5px 0;">投稿者: <%= task.user.name %></p>
+          
+          <div class="cheer-section" style="margin: 10px 0;">
+            <% if current_user.cheered?(task) %>
+              <%= button_to task_cheers_path(task), method: :delete, style: "background-color: #ffeef0; border: 1px solid #ffc1cc; color: #e83e8c; border-radius: 20px; padding: 5px 12px; cursor: pointer; font-size: 0.9rem; transition: all 0.2s;" do %>
+                💖 <%= task.cheers.count %>
+              <% end %>
+            <% else %>
+              <%= button_to task_cheers_path(task), method: :post, style: "background: none; border: 1px solid #ddd; border-radius: 20px; padding: 5px 12px; cursor: pointer; font-size: 0.9rem; color: #555; transition: all 0.2s;" do %>
+                🤍 <%= task.cheers.count %>
+              <% end %>
+            <% end %>
+          </div>
+          
           <% if current_user == task.user %>
             <%= button_to '✅ 完了にする', task_path(task, task: { status: 'done' }), method: :patch, form_class: 'status-form' %>
           <% end %>
@@ -45,6 +58,19 @@
         <div style="background: white; padding: 10px; margin-top: 10px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); opacity: 0.7;">
           <%= link_to task.title, task_path(task) %>
           <p style="font-size: 0.8rem; color: #666; margin: 5px 0;">投稿者: <%= task.user.name %></p>
+
+          <div class="cheer-section" style="margin: 10px 0;">
+            <% if current_user.cheered?(task) %>
+              <%= button_to task_cheers_path(task), method: :delete, style: "background-color: #ffeef0; border: 1px solid #ffc1cc; color: #e83e8c; border-radius: 20px; padding: 5px 12px; cursor: pointer; font-size: 0.9rem; transition: all 0.2s;" do %>
+                💖 <%= task.cheers.count %>
+              <% end %>
+            <% else %>
+              <%= button_to task_cheers_path(task), method: :post, style: "background: none; border: 1px solid #ddd; border-radius: 20px; padding: 5px 12px; cursor: pointer; font-size: 0.9rem; color: #555; transition: all 0.2s;" do %>
+                🤍 <%= task.cheers.count %>
+              <% end %>
+            <% end %>
+          </div>
+
           <% if current_user == task.user %>
             <%= button_to '↩️ 未対応に戻す', task_path(task, task: { status: 'todo' }), method: :patch, form_class: 'status-form' %>
           <% end %>
