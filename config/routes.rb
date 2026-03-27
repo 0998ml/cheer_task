@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   
   resources :group_users, only: [:create, :update, :destroy]
 
-  resources :groups, only: [:index, :create, :show, :edit, :update]
+  resources :groups, only: [:index, :create, :show, :edit, :update, :destroy]
 
   #自分の情報を扱うルート
   resources :users, only: [:show, :edit, :update, :destroy, :index]

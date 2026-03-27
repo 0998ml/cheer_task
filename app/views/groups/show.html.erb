@@ -1,7 +1,13 @@
 <div class="group-header" style="margin-bottom: 30px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
-  <h1> グループ：<%= @group.name %></h1>
-  
-  <%= link_to '← タスク一覧に戻る', tasks_path, class: "back-link", style: "color: #3498db; text-decoration: none;" %>
+  <div>
+    <h1> グループ：<%= @group.name %></h1>
+    <%= link_to '← タスク一覧に戻る', tasks_path, class: "back-link", style: "color: #3498db; text-decoration: none;" %>  
+  </div>
+
+  <%# ✅ 追加：管理者のみ表示される削除ボタン %>
+    <% if current_user.admin? %>
+      <%= button_to '🗑️ グループを削除', group_path(@group), method: :delete, form: { data: { turbo_confirm: "本当に「#{@group.name}」を削除しますか？\n※中のタスクもすべて消えます！" } }, style: "background: #ff4d4f; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; font-weight: bold;" %>
+    <% end %>
 </div>
 
 <h3>👥 参加メンバー</h3>

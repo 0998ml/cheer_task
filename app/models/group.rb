@@ -1,6 +1,6 @@
 class Group < ApplicationRecord
-  # グループにはたくさんのタスクが紐付く
-  has_many :tasks
+  # グループにはたくさんのタスクが紐付く グループ消したらタスクも削除される
+  has_many :tasks, dependent: :destroy
   
   # グループにはたくさんのユーザー（メンバー）がいる（招待機能用）
   has_many :group_users, dependent: :destroy
