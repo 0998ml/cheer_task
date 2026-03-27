@@ -7,10 +7,10 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     if @group.save
-      redirect_to groups_path, status: :see_other, notice: "グループを作成しました"
+      redirect_to tasks_path, status: :see_other, notice: "グループを作成しました"
     else
       @groups = Group.all
-      render :index, status: :unprocessable_entity
+      redirect_to tasks_path, status: :see_other, alert: "グループ作成に失敗しました"
     end
   end
 
