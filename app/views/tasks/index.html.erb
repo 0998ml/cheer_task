@@ -48,7 +48,13 @@
         <div class="task-card" id="task_<%= task.id %>">
           <h3><%= link_to task.title, task_path(task), class: "task-title-link" %></h3>
           <p><%= task.body %></p>
-          <p class="task-user">投稿者：<%= task.user.name %></p>
+          <div style="font-size: 0.9em; color: #333;">
+            <%= task.user.name %>
+          </div>
+
+          <div style="text-align: right; font-size: 0.8em; color: #888;">
+            <%= task.created_at.strftime('%Y/%m/%d %H:%M') %>
+          </div>
 
           <div class="cheer-section">
             <% if current_user.cheered?(task) %>
@@ -77,7 +83,13 @@
         <div class="task-card" id="task_<%= task.id %>">
           <h3><%= link_to task.title, task_path(task), class: "task-title-link" %></h3>
           <p><%= task.body %></p>
-          <p class="task-user">投稿者：<%= task.user.name %></p>
+          <div style="font-size: 0.9em; color: #333;">
+            <%= task.user.name %>
+          </div>
+
+          <div style="text-align: right; font-size: 0.8em; color: #888;">
+            <%= task.created_at.strftime('%Y/%m/%d %H:%M') %>
+          </div>
 
           <div class="cheer-section">
             <% if current_user.cheered?(task) %>

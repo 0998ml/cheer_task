@@ -3,7 +3,12 @@
 <div style="border: 1px solid #ccc; padding: 20px;">
   <h2><%= @task.title %></h2>
   <p><%= @task.body %></p>
-  <p>投稿者: <%= link_to @task.user.name, user_path(@task.user) %></p>
+  <p>
+    投稿者: <%= link_to @task.user.name, user_path(@task.user) %>
+    <span style="font-size: 0.8em; color: #888; margin-left: 15px;">
+      <%= @task.created_at.strftime('%Y/%m/%d %H:%M') %>
+    </span>
+  </p>
 
   <%# 要件10：自分の投稿の時だけ「編集」「削除」を表示する %>
   <% if @task.user == current_user %>
@@ -28,6 +33,11 @@
       <div class="comment-card">
         <p class="comment-user">
           <span class="user-icon">👤</span> <strong><%= comment.user.name %></strong>
+
+          <span style="font-size: 0.8em; color: #888; margin-left: 10px;">
+            <%= comment.created_at.strftime('%Y/%m/%d %H:%M') %>
+          </span>
+
         </p>
         <p class="comment-content"><%= comment.content %></p>
         

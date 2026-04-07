@@ -2,7 +2,7 @@ class Admin::TasksController < ApplicationController
   before_action :require_admin # 管理者以外は弾く
 
   def index
-    @tasks = Task.all.includes(:user) # 全タスクを取得（includesでユーザー情報も効率よく取得）
+    @tasks = Task.all.includes(:user) # 全タスクを取得
   end
 
   def destroy
