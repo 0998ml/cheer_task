@@ -42,7 +42,7 @@
         <p class="comment-content"><%= comment.content %></p>
         
         <% if comment.user == current_user %>
-          <%= button_to "削除する", task_comment_path(@task, comment), method: :delete, class: "delete-comment-btn" %>
+          <%= button_to "削除する", task_comment_path(@task, comment), method: :delete, form: { data: {turbo_confirm: '削除してよろしいですか' } }, class: "delete-comment-btn" %>
         <% end %>
       </div>
     <% end %>
