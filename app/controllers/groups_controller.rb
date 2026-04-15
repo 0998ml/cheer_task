@@ -1,4 +1,7 @@
 class GroupsController < ApplicationController
+  # 対象のグループ(@group)を見つけてくる
+  before_action :set_group, only: [:show, :destroy]
+
   def index
     @groups = Group.all
     @group = Group.new # 新規作成用
@@ -9,20 +12,21 @@ class GroupsController < ApplicationController
     if @group.save
       redirect_to tasks_path, status: :see_other, notice: "グループを作成しました"
     else
+      # renderの時は「flash.now」を使って、今の画面だけにメッセージを出す
+      flash.now[:alert] = "グループ作成に失敗しました"
+
+      @tasks = Task.includes(:user).all
       @groups = Group.all
-      redirect_to tasks_path, status: :see_other, alert: "グループ作成に失敗しました"
+      render 'tasks/index', status: :unprocessable_entity
     end
   end
 
   def show
-    @group = Group.find(params[:id])
     # このグループに紐付いているタスクだけを表示するため
     @tasks = @group.tasks
   end
 
   def destroy
-    @group = Group.find(params[:id])
-
     if current_user.admin?
       @group.destroy
       redirect_to tasks_path, status: :see_other, notice: "グループ「#{@group.name}」を削除しました"
@@ -36,4 +40,9 @@ class GroupsController < ApplicationController
   def group_params
     params.require(:group).permit(:name)
   end
+
+  def set_group
+    @group = Group.find(params[:id])
+  end
+
 end
