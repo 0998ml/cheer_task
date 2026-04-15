@@ -2,6 +2,9 @@ class TasksController < ApplicationController
   # 全アクションの前に、まずはログインしているかチェック
   before_action :authenticate_user
 
+  # 対象のタスク（@task）を見つけてくる（show, edit, update, destroyで共通）
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
+
   # 編集・更新・削除の前に、本人の投稿かチェック
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
   
@@ -10,18 +13,13 @@ class TasksController < ApplicationController
     @groups = Group.all
     @group = Group.new
     
-    # もし検索キーワードが入力されていたら
-    if params[:search].present?
-      # タイトル(title) か 本文(body) のどちらかにキーワードが含まれるものを探す
-      @tasks = Task.where('title LIKE ? OR body LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%")
-    else
-      # 検索されていない時は、今まで通りすべてのタスクを表示する
-      @tasks = Task.all
-    end
+    # 5行あったif文を、三項演算子でスッキリ1行に！
+    # 「検索ワードがある？ ? (あるなら)検索する : (ないなら)全部出す」
+    @tasks = params[:search].present? ? Task.includes(:user).search_by_keyword(params[:search]) : Task.includes(:user).all
   end
 
   def show
-    @task = Task.find(params[:id]) # 特定のタスクを1件取得
+    # set_taskが動くので、空
   end
 
   def new
@@ -45,7 +43,7 @@ class TasksController < ApplicationController
   def update
     if @task.update(task_params)
       #直前のページのURLに戻す　
-      redirect_to "#{request.referer.split('#').first}#task_#{@task.id}"
+      redirect_back_or_to tasks_path(anchor: "task_#{@task.id}"), notice: "タスクを更新しました。"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -62,8 +60,12 @@ class TasksController < ApplicationController
     params.require(:task).permit(:title, :body, :status, :group_id)
   end
 
-  def ensure_correct_user
+  # 【新規追加】タスクを見つける専属のメソッド
+  def set_task
     @task = Task.find(params[:id])
+  end
+
+  def ensure_correct_user
     if @task.user_id != current_user.id
       redirect_to tasks_path, alert: "権限がありません"
     end
