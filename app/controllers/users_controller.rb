@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     @user = current_user 
     # 氏名、メールアドレスを更新
     if @user.update(user_params)
-      redirect_to user_path, notice: "ユーザー情報を更新しました"
+      redirect_to @user, notice: "ユーザー情報を更新しました"
     else
       render :edit, status: :unprocessable_entity
     end
