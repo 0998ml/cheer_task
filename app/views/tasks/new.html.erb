@@ -1,39 +1,135 @@
-<h1>タスク新規投稿</h1>
+<div class="task-form-wrapper">
+  <div class="task-form-card">
+    <h2 class="form-title">タスク投稿</h2>
 
-<%# form_withに @task を渡すことで、Railsが自動的に「新規作成用のフォーム」だと判断します %>
-<%= form_with model: @task, local: true do |f| %>
+    <%= form_with(model: @task, local: true) do |f| %>
+      
+      <div class="form-group">
+        <%= f.label :title, "タイトル", class: "form-label" %>
+        <%= f.text_field :title, class: "form-control", placeholder: "例：要件定義書を作成する" %>
+      </div>
 
-  <%# 失敗した際のエラーメッセージを表示させる %>
-  <% if @task.errors.any? %>
-    <div style="color: red;">
-      <h3><%= @task.errors.count %>件のエラーがあります:</h3>
-      <ul>
-        <% @task.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+      <div class="form-group">
+        <%= f.label :body, "内容", class: "form-label" %>
+        <%= f.text_area :body, class: "form-control", rows: 5, placeholder: "タスクの詳細を記入してください" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :group_id, "グループ", class: "form-label" %>
+        <%= f.collection_select :group_id, Group.all, :id, :name, { prompt: "選択しない（未分類）" }, { class: "form-control" } %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.submit "投稿する", class: "submit-btn" %>
+      </div>
+
+    <% end %>
+
+    <div class="back-link-wrapper">
+      <%= link_to "← 一覧に戻る", tasks_path, class: "back-link" %>
     </div>
-  <% end %>
-
-  <div>
-    <%= f.label :title, "タイトル" %><br>
-    <%= f.text_field :title %>
   </div>
+</div>
 
-  <div>
-    <%= f.label :body, "内容" %><br>
-    <%= f.text_area :body %>
-  </div>
+<style>
+  /* 画面全体の背景を少しグレーにして、カードを目立たせる */
+  body {
+    background-color: #f8f9fa;
+  }
 
-  <div style="margin-bottom: 20px;">
-    <%= f.label :group_id, "グループ" %><br> <%# .distinctで重複しているデータは1つにまとめる #%>
-    <%= f.collection_select :group_id, current_user.groups.distinct, :id, :name, { include_blank: "選択しない（未分類）" }, { style: "padding: 5px; border-radius: 4px;" } %>
-  </div> 
+  /* フォームを中央に配置するラッパー */
+  .task-form-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+  }
 
-  <div style="margin-top: 20px;">
-    <%= f.submit "投稿する" %>
-  </div>
+  /* 白いカードのデザイン */
+  .task-form-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 500px; /* 横幅が広がりすぎないように制限 */
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* ほんのり影をつける */
+  }
 
-<% end %>
+  .form-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
 
-<%= link_to "一覧に戻る", tasks_path %>
+  /* 入力項目のまとまり */
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+    font-size: 0.9rem;
+  }
+
+  /* 入力欄（テキスト、エリア、セレクトボックス）共通デザイン */
+  .form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box; /* paddingを含めた幅を100%にする魔法 */
+    transition: border-color 0.2s; /* クリック時にフワッと色を変える準備 */
+  }
+
+  /* 入力欄をクリックした時の枠線の色 */
+  .form-control:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  }
+
+  /* ボタンのデザイン */
+  .form-actions {
+    margin-top: 30px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .submit-btn:hover {
+    background-color: #2980b9; 
+  }
+
+  /* 戻るリンクのデザイン */
+  .back-link-wrapper {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .back-link {
+    color: #888;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover {
+    color: #555;
+    text-decoration: underline;
+  }
+</style>
