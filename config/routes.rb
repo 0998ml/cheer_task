@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-  get "tasks/index"
-  get "tasks/show"
-  get "tasks/new"
-  get "tasks/edit"
-  get "homes/about"
   root to: 'homes#top'
   get 'about', to: 'homes#about'
   get 'signup', to: 'users#new' # 新規登録画面を表示するURL
@@ -27,8 +22,6 @@ Rails.application.routes.draw do
 
   # 管理者専用のルーティング
   namespace :admin do
-    get "tasks/index"
-    get "users/index"
     resources :users, only: [:index, :destroy] # 一覧画面
     resources :tasks, only: [:index, :destroy]
   end
