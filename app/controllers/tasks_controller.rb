@@ -9,7 +9,7 @@ class TasksController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
   
   def index
-    # 検索してもしなくても、サイドバーなどで使うこれらは「常に」必要！
+    # 検索してもしなくても、サイドバーなどで使うこれらは「常に」必要
     @groups = Group.all
     @group = Group.new
     
