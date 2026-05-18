@@ -1,17 +1,36 @@
-<h1>ログイン</h1>
-<%= form_with scope: :session, url: login_path, local: true do |f| %>
-  <div>
-    <%= f.label :email, "メールアドレス" %><br>
-    <%= f.email_field :email %>
-  </div>
+<div class="login-bg"></div>
+<div class="d-flex justify-content-center align-items-center login-container">
+  <div class="glass-card p-5 shadow-lg rounded-4 w-100" style="max-width: 450px;">
+    <div class="text-center mb-4">
+      <div class="login-icon mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-person-circle text-primary" viewBox="0 0 16 16">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+        </svg>
+      </div>
+      <h2 class="fw-bold login-title">Welcome Back</h2>
+      <p class="text-muted small">アカウントにログインしてタスクを管理しましょう</p>
+    </div>
 
-  <div>
-    <%= f.label :password, "パスワード" %><br>
-    <%= f.password_field :password %>
-  </div>
+    <%= form_with scope: :session, url: login_path, local: true, class: "needs-validation" do |f| %>
+      <div class="form-floating mb-4">
+        <%= f.email_field :email, class: "form-control custom-input", id: "floatingEmail", placeholder: "name@example.com", required: true %>
+        <%= f.label :email, "メールアドレス", for: "floatingEmail" %>
+      </div>
 
-  <div style="margin-top: 20px;">
-    <%= f.submit "ログイン" %>
-  </div>
-<% end %>
+      <div class="form-floating mb-4">
+        <%= f.password_field :password, class: "form-control custom-input", id: "floatingPassword", placeholder: "Password", required: true %>
+        <%= f.label :password, "パスワード", for: "floatingPassword" %>
+      </div>
 
+      <div class="d-grid gap-2 mt-5">
+        <%= f.submit "ログイン", class: "btn btn-premium btn-lg rounded-pill fw-bold shadow-sm" %>
+      </div>
+    <% end %>
+
+    <div class="text-center mt-4">
+      <p class="text-muted small mb-0">アカウントをお持ちでないですか？</p>
+      <%= link_to "新規登録はこちら", signup_path, class: "text-decoration-none fw-bold premium-link mt-1 d-inline-block" %>
+    </div>
+  </div>
+</div>
