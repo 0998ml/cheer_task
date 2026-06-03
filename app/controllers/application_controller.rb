@@ -21,10 +21,12 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin
-    # 「ログインしていない」または「管理者が true じゃない」場合はトップページに追い出す
-    unless current_user && current_user.admin?
+  # ログインしていないなら
+    if current_user.nil?
+      redirect_to login_path, alert: "ログインが必要です。"
+  # そうではなくて、現在のユーザーが管理者でないなら、トップページへ  
+    elsif !current_user.admin?
       redirect_to root_path, alert: "管理者権限がありません。"
     end
   end
-
 end

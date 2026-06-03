@@ -66,3 +66,5 @@ gem 'dotenv-rails'
 group :production do
   gem 'mysql2'
 end
+
+gem "minitest", "~> 5.25"
