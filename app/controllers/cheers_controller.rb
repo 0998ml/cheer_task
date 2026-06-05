@@ -1,5 +1,6 @@
 class CheersController < ApplicationController
   # 1. 共通の「タスク探し」を、アクションが動く前に実行
+  before_action :authenticate_user
   before_action :set_task, only: [:create, :destroy]
 
   def create
