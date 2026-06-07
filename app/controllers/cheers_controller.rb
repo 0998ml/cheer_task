@@ -16,7 +16,7 @@ class CheersController < ApplicationController
     
     # 自分のcheersの中から、このタスクにつけたCheerを探して削除する
     cheer = current_user.cheers.find_by(task_id: @task.id)
-    cheer.destroy
+    cheer&.destroy
 
     redirect_back(fallback_location: tasks_path)
   end
